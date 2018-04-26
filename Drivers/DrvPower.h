@@ -1,0 +1,94 @@
+/******************************************************************************
+ *
+ * Platform:      184-966
+ * Module:        Drivers
+ * File:          DrvPower.h
+ *
+ * Designed by:   Kees Hemmes
+ *
+ * $Workfile: DrvPower.h $
+ * $Archive: /MDXP600/BootLoader/Drivers/DrvPower.h $
+ * $History: DrvPower.h $
+ * 
+ * *****************  Version 2  *****************
+ * User: Rick         Date: 7/09/08    Time: 4:35p
+ * Updated in $/MDXP600/BootLoader/Drivers
+ * New LCD display.   Code will work with the original LCD ES13BA0FLY and
+ * new China LCD MID184-310
+ * 
+ * *****************  Version 1  *****************
+ * User: Rick         Date: 1/24/08    Time: 8:21a
+ * Created in $/MDXP600/BootLoader/Drivers
+ *
+ * Description:
+ *
+ * References:
+ *
+ * 
+ *
+*******************************************************************************/
+
+#ifndef _DRV_DOWER_H_
+#define _DRV_POWER_H_
+
+////////////////////////////////////////////////////////////////////////////////
+//
+// Required include files.
+//
+////////////////////////////////////////////////////////////////////////////////
+
+#include "DrvPic18f67J10.h"
+
+#include "MplabC18.h"
+#include "DrvMdxP600.h"
+
+////////////////////////////////////////////////////////////////////////////////
+//
+// Type definitions.
+//
+////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+//
+// Definitions
+//
+////////////////////////////////////////////////////////////////////////////////
+
+//
+// I/O line definitions.
+//
+
+// I/O lines.
+#define POWER_CONTROL_IO    MDX_PWRON_IO
+
+// I/O line direction bits.
+#define POWER_CONTROL_TRIS  MDX_PWRON_TRIS
+
+// I/O line states
+#define POWER_OFF           0
+#define POWER_ON            1
+
+////////////////////////////////////////////////////////////////////////////////
+//
+// Macro's
+//
+////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+//
+// Function protoypes.
+//
+////////////////////////////////////////////////////////////////////////////////
+
+void DrvPowerInit( UINT8 AutoOffTimeSec );
+void DrvPower1sIsr( void ); 
+void DrvPowerOn( void ); 
+void DrvPowerOff( void ); 
+
+////////////////////////////////////////////////////////////////////////////////
+//
+// End of include file.
+//
+////////////////////////////////////////////////////////////////////////////////
+
+#endif

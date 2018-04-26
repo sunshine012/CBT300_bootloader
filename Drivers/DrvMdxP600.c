@@ -1,0 +1,84 @@
+////////////////////////////////////////////////////////////////////////////////
+//
+// MdxP600.c
+//
+////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+//
+// Required include files.
+//
+////////////////////////////////////////////////////////////////////////////////
+
+#include "DrvPic18f67J10.h"
+
+#include "DrvMcc18.h"
+#include "DrvMdxP600.h"
+
+////////////////////////////////////////////////////////////////////////////////
+//
+// 
+//
+////////////////////////////////////////////////////////////////////////////////
+
+// CONFIG1L: Configuration register 1 low.
+
+
+#pragma config DEBUG    = OFF        // Background debugger DISabled.
+#pragma config XINST    = ON        // Instruction set extension disabled.
+#pragma config STVREN   = OFF       // Reset on stack overflow/underflow disabled.
+#pragma config WDTEN    = OFF       // Watchdog timer ENabled.
+
+// CONFIG1H: Configuration register 1 high.
+#pragma config CP0      = OFF       // Code protection disabled.
+
+// CONFIG2L: Configuration register 2 low.
+#pragma config IESO     = OFF       // Two-Speed Start up disabled.
+#pragma config FCMEN    = OFF       // Fail-safe Clock monitor disabled.
+#pragma config FOSC2    = ON        // Clock selected by FOSC.
+#pragma config FOSC     = HSPLL     // HS oscillator, PLL enabled.
+
+// CONFIG2H: Configuration register 2 high.
+#pragma config WDTPS    = 32768     // Watchdog timer postscaler.
+
+// CONFIG3L: Configuration register 3 low. Be used by 80Pin above
+//#pragma config WAIT     = ON       // Wait states for external bus disabled (not used).
+//#pragma config BW       = 8         // External bus width (not used).
+//#pragma config MODE     = MM        // Microcontroller mode enabled, external bus disabled.
+//#pragma config EASHFT   = OFF       // External bus address shifting disabled (not used).
+
+// CONFIG3H: Configuration register 3 high.
+//#pragma config ECCPMX   = DEFAULT   // Default ECCP1/ECCP3 outputs multiplexing (not used).
+#pragma config CCP2MX   = DEFAULT   // Default ECCP2 outputs multiplexing (not used).
+
+////////////////////////////////////////////////////////////////////////////////
+//
+// Local variables.
+//
+////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+//
+// Global variables.
+//
+////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+//
+// Local functions.
+//
+////////////////////////////////////////////////////////////////////////////////
+
+////////////////////////////////////////////////////////////////////////////////
+//
+// Global functions.
+//
+////////////////////////////////////////////////////////////////////////////////
+
+void DrvCBT300Init( void )
+{
+   // Enable PLL circuit to quadrupple processor frequency. 8*4 =32MHz
+   OSCTUNEbits.PLLEN = 1;
+}
+   
+

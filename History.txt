@@ -1,0 +1,23 @@
+RJ
+12/03/07
+192-160002A Release
+
+RJ
+05/27/08
+192-160002B 
+Updated bootload for new LCD 184-310
+Added command 5 which returns the bootloader version string 192-160002B
+
+CH
+01/26/2018
+Use the MDX-P600 Bootloader as the base version,
+Develop software to run on the CBT-200
+
+CH
+03/07/2018
+Now the interrupts function is added in the bootloader.
+Save for back up.
+
+CH
+03/08/2018
+Modify the connection process, now thw PAN1026 can connect with the computer.
