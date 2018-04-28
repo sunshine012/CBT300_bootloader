@@ -63,22 +63,7 @@ typedef UINT8 (*pFByteByte)(UINT8 data);
 ////////////////////////////////////////////////////////////////////////////////
 void AppInit( void )
 {
-    DrvCBT300Init();
-    DrvSsp1InitAsSpiMaster();
-    DrvEepromInit();
-    DrvLoadInit();
-    DrvConfigBoardInit();
-    
-    DrvKeyInit();
-    DrvIntInit();
-    Initial_LCD();
-    DrvTimer0Init();
 
-    DrvUsartInit( USART_PORT_1, USART_BAUD_RATE_57600, SerialRxBuffer1, sizeof(SerialRxBuffer1) );   // for MXT programing
-
-    //DrvTimer1Init();
-    //DrvTimer2Init();
-    DisableWatchDog();
 }
 
 void VariableInitialize(void)	
@@ -88,7 +73,6 @@ void VariableInitialize(void)
 	ConfigData = DrvConfigBoardGet();
    	ConnectionFlag = FALSE;
 	ConnectionCounter = 0;
-	BTSystemConfig 	= OPERATE_SYSTEM_NONE;//OPERATE_SYSTEM_ANDROID;
 	UpdateSrcSerialNum = UPDATE_SOURCE_NONE;
 }
 
@@ -127,15 +111,7 @@ void main( void )
 {
     UINT8       RunApplication;
     
-    memset(SerialPort2DrvBuffer, 0x00, sizeof(SerialPort2DrvBuffer));
-    memset(SerialRxBuffer1, 0x00, sizeof(SerialRxBuffer1));
-    memset(SerialRxBuffer2, 0x00, sizeof(SerialRxBuffer2));
-    
-    AppInit();
-	CLRWDT();
-    VariableInitialize();
-	CLRWDT();
-    
+    DrvKeyInit();
     RunApplication = ChkSumCode();      //verify the checksum
   
    if(KEY_SW1_IO == 0 && KEY_SW3_IO == 0)
@@ -145,20 +121,37 @@ void main( void )
       RunApplication = (*((pFByteByte)(P18F87_FLASH_START_ADDRESS + 0x30)))(0xAA);         
    }
    
+   memset(SerialPort2DrvBuffer, 0x00, sizeof(SerialPort2DrvBuffer));
+   memset(SerialRxBuffer1, 0x00, sizeof(SerialRxBuffer1));
+   memset(SerialRxBuffer2, 0x00, sizeof(SerialRxBuffer2));
+   DrvCBT300Init();
+   DrvSsp1InitAsSpiMaster();
+   DrvEepromInit();
+   DrvLoadInit();
+   DrvConfigBoardInit();
+   DrvIntInit();
+   Initial_LCD();
+   DrvTimer0Init();
+   DrvTimer1Init();
+   DrvTimer2Init();
+   DisableWatchDog();
+   
+   VariableInitialize();
+   CLRWDT();
+  
     if(CBT100_COMFIG == ConfigData)
     {
         DrvUsartInit( USART_PORT_1, USART_BAUD_RATE_57600, 0, 0);   // for MXT programing
         BootLoad();     //run serial bootloader
     }
     else if(CBT300_CONFIG == ConfigData)
-    {	
-        //DrvUsartInit( USART_PORT_1, USART_BAUD_RATE_57600, SerialRxBuffer1, sizeof(SerialRxBuffer1) );   // for MXT programing
+    {
+        DrvUsartInit( USART_PORT_1, USART_BAUD_RATE_57600, SerialRxBuffer1, sizeof(SerialRxBuffer1) );   // for MXT programing
         DrvUsartInit( USART_PORT_2, USART_BAUD_RATE_115200, SerialPort2DrvBuffer, sizeof(SerialPort2DrvBuffer) );
         DrvPan1026Init();
         DelayXms(200);
-        BTSystemConfig = OPERATE_SYSTEM_ANDROID;
         BLOperatingState = BL_BLUETOOTH_INIT;
         BlueToothState();
-    }     
+    }    
 }
 

@@ -70,7 +70,7 @@ typedef struct{
 
 #define BT_DEVICE_RECORDED_NUM_MAX      10
 
-#define EESerialNumberDataAddress      	(0x0000+64)//11Byte
+#define EESerialNumberDataAddress      	(0x0000+0x70)//11Byte
 #define EEBTRemoteDataAddress           (0x0000+0x300)
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -103,8 +103,6 @@ extern UINT8 SerialPort2DrvBuffer[160];
 
 extern UINT8 TempBTBuffer[128];  
 extern UINT8 WrapperBuffer[128];
-
-extern UINT8 BTSystemConfig;
 
 extern UINT8 BLOperatingState;
 

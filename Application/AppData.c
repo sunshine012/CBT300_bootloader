@@ -49,8 +49,6 @@ UINT8 SerialPort2DrvBuffer[160];
 UINT8 TempBTBuffer[128];  
 UINT8 WrapperBuffer[128];
 
-UINT8 BTSystemConfig = OPERATE_SYSTEM_ANDROID;
-
 UINT8 BLOperatingState; // Bootloader operating state
 UINT8 BLDataStatus;
 

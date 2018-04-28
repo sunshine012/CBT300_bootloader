@@ -751,7 +751,6 @@ UINT8 SysProcessBluetoothCommand( CHAR* pBuffer)
                     BlueToothStatemachine();
                     Result = 1;
                 }
-
             }
             break;
             
